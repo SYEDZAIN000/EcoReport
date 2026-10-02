@@ -1,0 +1,262 @@
+/* ============================================================
+   EcoReport - custom styles (loaded AFTER Bootstrap)
+   Change the colours in :root below to restyle the whole site.
+   ============================================================ */
+
+:root {
+  --eco-green: #1b7a4b;
+  --eco-green-dark: #12613b;
+  --eco-ink: #16241c;
+  --eco-muted: #62705f;
+  --eco-surface: #f4f7f3;
+  --eco-line: #dde4da;
+  --eco-pending: #d64545;
+  --eco-progress: #d99100;
+  --eco-resolved: #1b7a4b;
+}
+
+body {
+  background-color: var(--eco-surface);
+  color: var(--eco-ink);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+h1, h2, h3, h4, h5,
+.navbar-brand {
+  font-family: "Manrope", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--eco-line);
+}
+
+.navbar-brand {
+  color: var(--eco-green) !important;
+  font-size: 1.35rem;
+}
+
+.navbar .nav-link {
+  color: var(--eco-muted);
+  font-weight: 500;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--eco-green);
+}
+
+/* ---------- Buttons ---------- */
+.btn-eco {
+  background-color: var(--eco-green);
+  border: 1px solid var(--eco-green);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+}
+
+.btn-eco:hover,
+.btn-eco:focus {
+  background-color: var(--eco-green-dark);
+  border-color: var(--eco-green-dark);
+  color: #fff;
+}
+
+.btn-eco-outline {
+  background-color: transparent;
+  border: 1px solid var(--eco-green);
+  color: var(--eco-green);
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border-radius: 8px;
+}
+
+.btn-eco-outline:hover {
+  background-color: var(--eco-green);
+  color: #fff;
+}
+
+/* Keyboard users must be able to see where they are */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--eco-green);
+  outline-offset: 2px;
+}
+
+/* ---------- Cards / panels ---------- */
+.eco-card {
+  background: #fff;
+  border: 1px solid var(--eco-line);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.eco-card-tight {
+  padding: 1.1rem;
+}
+
+/* ---------- Hero on the home page ---------- */
+.hero {
+  background: #fff;
+  border-bottom: 1px solid var(--eco-line);
+  padding: 4rem 0;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  line-height: 1.1;
+  max-width: 16ch;
+}
+
+.hero p.lead {
+  color: var(--eco-muted);
+  max-width: 52ch;
+}
+
+/* ---------- Status badges ---------- */
+.status {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.status-pending {
+  color: var(--eco-pending);
+  background: #fdeaea;
+  border-color: #f6cfcf;
+}
+
+.status-progress {
+  color: #8a5d00;
+  background: #fdf3dc;
+  border-color: #f2e0b0;
+}
+
+.status-resolved {
+  color: var(--eco-resolved);
+  background: #e6f4ec;
+  border-color: #c4e3d2;
+}
+
+/* ---------- Forms ---------- */
+.form-label {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+
+.form-control,
+.form-select {
+  border: 1px solid var(--eco-line);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--eco-green);
+  box-shadow: 0 0 0 3px rgba(27, 122, 75, 0.15);
+}
+
+.form-hint {
+  font-size: 0.83rem;
+  color: var(--eco-muted);
+}
+
+/* ---------- Photo upload box ---------- */
+.upload-box {
+  border: 2px dashed var(--eco-line);
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  background: #fbfdfa;
+  cursor: pointer;
+}
+
+.upload-box:hover {
+  border-color: var(--eco-green);
+}
+
+#imagePreview {
+  max-height: 220px;
+  border-radius: 8px;
+  margin-top: 1rem;
+  display: none;
+}
+
+/* ---------- Map ---------- */
+#map {
+  height: 280px;
+  border-radius: 10px;
+  border: 1px solid var(--eco-line);
+}
+
+/* ---------- Admin summary tiles ---------- */
+.tile {
+  background: #fff;
+  border: 1px solid var(--eco-line);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+.tile .count {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tile .label {
+  color: var(--eco-muted);
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+}
+
+/* ---------- Table ---------- */
+.table > :not(caption) > * > * {
+  padding: 0.85rem 0.75rem;
+  border-bottom-color: var(--eco-line);
+}
+
+.table thead th {
+  font-size: 0.82rem;
+  color: var(--eco-muted);
+  font-weight: 600;
+}
+
+.thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background: #fff;
+  border-top: 1px solid var(--eco-line);
+  color: var(--eco-muted);
+  font-size: 0.9rem;
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+}
+
+/* ---------- Auth pages ---------- */
+.auth-wrap {
+  max-width: 430px;
+  margin: 3.5rem auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}

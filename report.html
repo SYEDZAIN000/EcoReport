@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Report an issue - EcoReport</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Leaflet: free map, no API key needed -->
+  <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">EcoReport</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="report.html">Report an issue</a></li>
+        <li class="nav-item"><a class="nav-link" href="my-reports.html">My reports</a></li>
+        <li class="nav-item"><a class="btn btn-eco ms-lg-2" href="login.html">Sign in</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <h1 class="mb-1">Report an issue</h1>
+      <p class="form-hint mb-4">All fields marked with * are required.</p>
+
+      <!--
+        PHP NOTE for your teammate:
+        - rename this file report.php
+        - action="submit_report.php" method="post"
+        - enctype="multipart/form-data" is REQUIRED or the photo will not upload
+        - the name="..." values below should match the MySQL column names
+      -->
+      <form id="reportForm" class="eco-card" action="submit_report.php" method="post"
+            enctype="multipart/form-data" novalidate>
+
+        <!-- Category -->
+        <div class="mb-4">
+          <label class="form-label" for="category">Type of issue *</label>
+          <select class="form-select" id="category" name="issue_category" required>
+            <option value="">Choose a category</option>
+            <option value="garbage">Garbage and waste</option>
+            <option value="pothole">Pothole or damaged road</option>
+            <option value="streetlight">Streetlight not working</option>
+            <option value="water">Water leak or drainage</option>
+            <option value="other">Something else</option>
+          </select>
+          <div class="invalid-feedback">Pick the category that fits best.</div>
+        </div>
+
+        <!-- Title -->
+        <div class="mb-4">
+          <label class="form-label" for="title">Short title *</label>
+          <input type="text" class="form-control" id="title" name="issue_title"
+                 maxlength="80" placeholder="Large pothole near the bus stop" required>
+          <div class="form-hint mt-1">Up to 80 characters.</div>
+          <div class="invalid-feedback">Give the issue a short title.</div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4">
+          <label class="form-label" for="description">What is the problem? *</label>
+          <textarea class="form-control" id="description" name="issue_description"
+                    rows="4" minlength="20" maxlength="500"
+                    placeholder="Describe what you saw, how long it has been there, and whether it is unsafe."
+                    required></textarea>
+          <div class="d-flex justify-content-between">
+            <span class="form-hint mt-1">At least 20 characters.</span>
+            <span class="form-hint mt-1"><span id="charCount">0</span>/500</span>
+          </div>
+          <div class="invalid-feedback">Please describe the issue in at least 20 characters.</div>
+        </div>
+
+        <!-- Photo -->
+        <div class="mb-4">
+          <label class="form-label" for="photo">Photo *</label>
+          <label class="upload-box d-block mb-0" for="photo">
+            <div class="fw-semibold">Click to choose a photo</div>
+            <div class="form-hint">JPG or PNG, up to 2 MB</div>
+            <input type="file" class="form-control d-none" id="photo" name="issue_photo"
+                   accept="image/png, image/jpeg" required>
+            <img id="imagePreview" alt="Preview of the photo you selected" class="mx-auto d-block">
+          </label>
+          <div id="photoError" class="text-danger form-hint mt-1"></div>
+        </div>
+
+        <!-- Location -->
+        <div class="mb-4">
+          <label class="form-label" for="address">Where is it? *</label>
+          <div class="input-group mb-2">
+            <input type="text" class="form-control" id="address" name="issue_address"
+                   placeholder="Street name, landmark, area" required>
+            <button class="btn btn-eco-outline" type="button" id="locateBtn">Use my location</button>
+          </div>
+          <div class="invalid-feedback d-block" id="addressError"></div>
+          <div class="form-hint mb-2">You can also drag the pin on the map to the exact spot.</div>
+
+          <div id="map"></div>
+
+          <!-- These hidden fields are what PHP will actually save -->
+          <input type="hidden" id="latitude"  name="latitude"  value="12.9352">
+          <input type="hidden" id="longitude" name="longitude" value="77.5814">
+        </div>
+
+        <!-- Landmark / ward (optional) -->
+        <div class="mb-4">
+          <label class="form-label" for="ward">Ward or area (optional)</label>
+          <input type="text" class="form-control" id="ward" name="ward"
+                 placeholder="For example, Jayanagar 4th Block">
+        </div>
+
+        <div class="d-flex flex-wrap gap-2">
+          <button type="submit" class="btn btn-eco">Send report</button>
+          <a href="index.html" class="btn btn-eco-outline">Cancel</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container d-flex flex-wrap justify-content-between gap-2">
+    <span>EcoReport &mdash; Department of Computer Applications, SSMRV College</span>
+    <span>A student project for cleaner, safer cities</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>
